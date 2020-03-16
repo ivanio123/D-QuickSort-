@@ -21,12 +21,12 @@ namespace SortTest
 {
     class StudSort
     {
-        static int Partition(ValueType[] data, int minIndex, int maxIndex)
+        public static int Partition(ValueType[] data, int left, int right)
         {
-            int pivot = minIndex - 1;
-            for (int i = minIndex; i < maxIndex; i++)
+            int pivot = left - 1;
+            for (int i = left; i < right; i++)
             {
-                if (data[i] < data[maxIndex])
+                if (data[i] < data[right])
                 {
                     pivot++;
                     ValueType temp = data[pivot];
@@ -34,31 +34,30 @@ namespace SortTest
                     data[i] = temp;
                 }
             }
-
             pivot++;
             ValueType temp1 = data[pivot];
-            data[pivot] = data[maxIndex];
-            data[maxIndex] = temp1;
+            data[pivot] = data[right];
+            data[right] = temp1;
             return pivot;
         }
 
-        static ValueType[] Sort(ValueType[] data, int minIndex, int maxIndex)
+        public static ValueType[] QuickSort(ValueType[] data, int left, int right)
         {
-            if (minIndex >= maxIndex)
+            if (left >= right)
             {
                 return data;
             }
 
-            int pivotIndex = Partition(data, minIndex, maxIndex);
-            Sort(data, minIndex, pivotIndex - 1);
-            Sort(data, pivotIndex + 1, maxIndex);
+            int pivotIndex = Partition(data, left, right);
+            QuickSort(data, left, pivotIndex - 1);
+            QuickSort(data, pivotIndex + 1, right);
 
             return data;
         }
 
         public static ValueType[] Sort(ValueType[] data) // DON'T CHANGE this line!!!
         {
-            return Sort(data, 0, data.Length - 1);
+            return QuickSort(data, 0, data.Length - 1);
         }
     }
 }
